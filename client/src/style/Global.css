@@ -1,0 +1,201 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   global.css
+   ─────────────────────────────────────────────────────────────────────────
+   This file includes:
+   1) Tailwind imports
+   2) Your existing page‐level styles (.Tab-bar, .Tab, etc.)
+   3) Dark‐mode overrides for Google Maps built-in controls
+   4) Precise overrides for Google Maps InfoWindow so that the entire
+      bubble (frame, arrow, close‐bar, and content) switches cleanly
+      between light and dark without any white “chrome” peeking through
+   ─────────────────────────────────────────────────────────────────────────
+*/
+
+/*─────────────────────────────────────────────────────────────────────────
+  1) Tailwind base, components, utilities
+─────────────────────────────────────────────────────────────────────────*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*─────────────────────────────────────────────────────────────────────────
+  2) Your existing page/global styles
+─────────────────────────────────────────────────────────────────────────*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+.Tab-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #2D68C4; /* Bruin Blue */
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.Tab {
+  margin: 0 15px;
+  padding: 10px 20px;
+  color: white;
+  background-color: #FFB81C; /* Gold */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.Tab:hover {
+  background-color: #e6a900;
+}
+
+.Main-content {
+  padding-top: 80px; /* To account for fixed nav */
+  text-align: center;
+}
+
+/*─────────────────────────────────────────────────────────────────────────
+  3) Dark-mode support for Google Maps built-in controls
+─────────────────────────────────────────────────────────────────────────*/
+body.dark .gm-style-mtc {
+  background-color: #2c2c2c !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.dark .gm-style-mtc button {
+  background: transparent !important;
+  color: #fff !important;
+  font-weight: 500;
+  border: none !important;
+}
+
+body.dark .gm-style-mtc button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+
+
+
+/* global.css */
+/*─────────────────────────────────────────────────────────────────────────
+  custom-iw: popup box that always positions bottom-center at the coordinate
+─────────────────────────────────────────────────────────────────────────*/
+.custom-iw {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /* Lift bottom‐center of the box 8px above the circle: */
+  transform: translate(-50%, calc(-100% - 8px));
+
+  width: 280px;
+  height: 120px;
+  padding: 12px 16px;
+
+  background-color: #fff;
+  color: #212121;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  box-sizing: border-box;
+  overflow: visible;
+  z-index: 1000;
+
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Arrow “slot” effect */
+.custom-iw::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -11px; /* 1px below the ::after */
+  transform: translateX(-50%);
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 11px solid #dadce0; /* match box border */
+}
+
+.custom-iw::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px; /* directly under the box */
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff; /* match box background */
+}
+
+/* Dark mode overrides */
+body.dark .custom-iw {
+  background-color: #2b2b2b;
+  color: #f0f0f0;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+body.dark .custom-iw::before {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+body.dark .custom-iw::after {
+  border-top-color: #2b2b2b;
+}
+
+/* Close “×” button */
+.iw-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Buttons */
+.iw-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.iw-btn-yes {
+  background-color: #1a73e8;
+  color: #fff;
+}
+.iw-btn-yes:hover {
+  background-color: #1669c1;
+}
+
+.iw-btn-cancel {
+  background-color: #f1f3f4;
+  color: #3c4043;
+}
+.iw-btn-cancel:hover {
+  background-color: #e8eaed;
+}
+
+body.dark .iw-btn-cancel {
+  background-color: #454545;
+  color: #e0e0e0;
+}
+body.dark .iw-btn-cancel:hover {
+  background-color: #3a3a3a;
+}
