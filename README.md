@@ -3,7 +3,7 @@
 This is a full-stack web application for planning and discovering events at UCLA.
 
 Authors:
--   **Ian Utnehmer** ([@avian187](https://github.com/avian187))
+-   **Ian Utnehmer** ([@ian-utnehmer](https://github.com/ian-utnehmer))
 -   **Samuel Ma** ([@samuelkma](https://github.com/samuelkma))
 -   **Ethan Joshua Catay** ([@etnjcty](https://github.com/etnjcty))
 
